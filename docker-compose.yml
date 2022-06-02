@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  app:
+    container_name: product-manager-app
+    restart: always
+    build: .
+    ports:
+      - "8080:8080"
+    links:
+      - database
+  database:
+    container_name: product-manager-database
+    image: postgres:9.4
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=passwd
+      - POSTGRES_DB=banco
+    ports:
+      - "5432:5432"
