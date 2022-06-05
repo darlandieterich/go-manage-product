@@ -1,7 +1,10 @@
 package model
 
+import "errors"
+
 var (
-//Err
+	ErrStockTotal = errors.New("o total deve ser maior que zero")
+	ErrStockCute  = errors.New("o total deve ser maior que o corte")
 )
 
 type Stock struct {
