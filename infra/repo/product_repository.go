@@ -54,9 +54,6 @@ func (t *ProductConn) Create(ctx context.Context, product *model.Product) (uuid 
 }
 
 func (t *ProductConn) Update(ctx context.Context, product *model.Product) error {
-	if done := t.conn.Model(&model.Product{}).Where("id = ?", product.ID).Update("done", true); done.Error != nil {
-		return done.Error
-	}
-
+	// TODO: add update logic
 	return nil
 }

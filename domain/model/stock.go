@@ -1,6 +1,10 @@
 package model
 
-import "errors"
+import (
+	"errors"
+
+	"github.com/google/uuid"
+)
 
 var (
 	ErrStockTotal = errors.New("o total deve ser maior que zero")
@@ -9,9 +13,9 @@ var (
 
 type Stock struct {
 	General
-	ID        int     `gorm:"primaryKey" json:"id"`
-	Total     int     `json:"total"`
-	Cute      int     `json:"cute"`
-	Available int     `json:"available"`
-	Product   Product `gorm:"foreignKey:ID" json:"product"`
+	ID        uuid.UUID `gorm:"index,primaryKey" json:"id"`
+	Total     int       `json:"total"`
+	Cute      int       `json:"cute"`
+	Available int       `json:"available"`
+	Product   Product   `gorm:"foreignKey:ID" json:"product"`
 }
