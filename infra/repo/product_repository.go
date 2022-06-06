@@ -17,7 +17,7 @@ type ProductConn struct {
 	conn *gorm.DB
 }
 
-func NewTasRepository(conn *gorm.DB) ProductRepository {
+func NewProductRepository(conn *gorm.DB) ProductRepository {
 	return &ProductConn{conn: conn}
 }
 

@@ -13,6 +13,6 @@ type ProductService struct {
 
 func NewProductService(conn *gorm.DB) *ProductService {
 	return &ProductService{
-		products: repo.NewTasRepository(conn),
+		products: repo.NewProductRepository(conn),
 	}
 }
