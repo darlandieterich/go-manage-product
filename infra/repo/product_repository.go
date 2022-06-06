@@ -30,8 +30,8 @@ func (t *ProductConn) Delete(ctx context.Context, uuid uuid.UUID) error {
 }
 
 func (t *ProductConn) FindAll(ctx context.Context) (products []*model.Product, err error) {
-	if delete := t.conn.Find(&products); delete.Error != nil {
-		return nil, delete.Error
+	if finded := t.conn.Find(&products); finded.Error != nil {
+		return nil, finded.Error
 	}
 
 	return
