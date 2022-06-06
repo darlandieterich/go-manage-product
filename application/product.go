@@ -2,6 +2,7 @@ package application
 
 import (
 	product "product_manager/domain/repository"
+	"product_manager/infra/repo"
 
 	"gorm.io/gorm"
 )
@@ -12,6 +13,6 @@ type ProductService struct {
 
 func NewProductService(conn *gorm.DB) *ProductService {
 	return &ProductService{
-		products: nil,
+		products: repo.NewTasRepository(conn),
 	}
 }
