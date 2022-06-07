@@ -38,7 +38,15 @@ func (t *ProductConn) ListAll(ctx context.Context) (products []*model.Product, e
 }
 
 func (t *ProductConn) FindByCode(ctx context.Context, code string) (product *model.Product, err error) {
-	if finded := t.conn.First(&product, "code = ?", code); finded.Error != nil {
+	if finded := t.conn.Preload("Stock").First(&product, "code = ?", code); finded.Error != nil {
+		return product, finded.Error
+	}
+
+	return
+}
+
+func (t *ProductConn) FindById(ctx context.Context, uuid uuid.UUID) (product *model.Product, err error) {
+	if finded := t.conn.Preload("Stock").First(&product, "id = ?", uuid); finded.Error != nil {
 		return product, finded.Error
 	}
 
@@ -54,6 +62,10 @@ func (t *ProductConn) Create(ctx context.Context, product *model.Product) (uuid 
 }
 
 func (t *ProductConn) Update(ctx context.Context, product *model.Product) error {
-	// TODO: add update logic
+	updated := t.conn.Session(&gorm.Session{FullSaveAssociations: true}).Save(&product)
+	if updated.Error != nil {
+		return updated.Error
+	}
+
 	return nil
 }

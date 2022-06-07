@@ -36,6 +36,7 @@ func Routes() {
 	auth.Use(authMiddleware.MiddlewareFunc())
 	{
 		auth.POST("/product", handler.CreateProduct)
+		auth.PATCH("/product/:id", handler.UpdateProduct)
 	}
 	////////////////
 

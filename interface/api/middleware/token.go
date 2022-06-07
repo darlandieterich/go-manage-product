@@ -55,7 +55,6 @@ func GetJWTMiddleware(c *gin.Context) (authMiddleware *jwt.GinJWTMiddleware) {
 			return nil, jwt.ErrFailedAuthentication
 		},
 		Authorizator: func(data interface{}, c *gin.Context) bool {
-			fmt.Println("Authorizator", data)
 			return true
 		},
 		Unauthorized: func(c *gin.Context, code int, message string) {

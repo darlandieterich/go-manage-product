@@ -12,5 +12,6 @@ type ProductRepository interface {
 	Update(ctx context.Context, product *model.Product) error
 	Delete(ctx context.Context, uuid uuid.UUID) error
 	FindByCode(ctx context.Context, code string) (*model.Product, error)
+	FindById(ctx context.Context, uuid uuid.UUID) (*model.Product, error)
 	ListAll(ctx context.Context) ([]*model.Product, error)
 }

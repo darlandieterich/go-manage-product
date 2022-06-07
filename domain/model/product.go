@@ -26,26 +26,11 @@ type Product struct {
 
 func NewProduct(code, name string,
 	stockTotal, stockCute uint,
-	priceFrom, priceTo float32) (*Product, error) {
-	if code == "" {
-		return nil, ErrProductCode
-	}
-
-	if name == "" {
-		return nil, ErrProductName
-	}
-
-	if stockCute > stockTotal {
-		return nil, ErrStockCute
-	}
-
-	if priceFrom < priceTo {
-		return nil, ErrProductPrice
-	}
+	priceFrom, priceTo float32) (product *Product, err error) {
 
 	uuid := uuid.New()
 
-	return &Product{
+	product = &Product{
 		ID:        uuid,
 		Code:      code,
 		Name:      name,
@@ -56,5 +41,31 @@ func NewProduct(code, name string,
 			Cute:      stockCute,
 			Available: stockTotal - stockCute,
 		},
-	}, nil
+	}
+
+	if err = ProductValidation(product); err != nil {
+		return nil, err
+	}
+
+	return product, nil
+}
+
+func ProductValidation(product *Product) error {
+	if product.Code == "" {
+		return ErrProductCode
+	}
+
+	if product.Name == "" {
+		return ErrProductName
+	}
+
+	if product.Stock.Cute > product.Stock.Total {
+		return ErrStockCute
+	}
+
+	if product.PriceFrom < product.PriceTo {
+		return ErrProductPrice
+	}
+
+	return nil
 }
