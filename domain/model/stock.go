@@ -14,8 +14,8 @@ var (
 type Stock struct {
 	General
 	ID        uuid.UUID `gorm:"index,primaryKey" json:"id"`
-	Total     int       `json:"total"`
-	Cute      int       `json:"cute"`
-	Available int       `json:"available"`
+	Total     uint      `json:"total"`
+	Cute      uint      `json:"cute"`
+	Available uint      `json:"available"`
 	ProductID uuid.UUID `gorm:"index" json:"product_id"`
 }

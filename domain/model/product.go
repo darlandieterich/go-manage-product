@@ -24,7 +24,9 @@ type Product struct {
 	Stock     Stock     `json:"foreign_key:product_id"`
 }
 
-func NewProduct(code, name string) (*Product, error) {
+func NewProduct(code, name string,
+	stockTotal, stockCute uint,
+	priceFrom, priceTo float32) (*Product, error) {
 	if code == "" {
 		return nil, ErrProductCode
 	}
@@ -33,8 +35,24 @@ func NewProduct(code, name string) (*Product, error) {
 		return nil, ErrProductName
 	}
 
+	if stockCute > stockTotal {
+		return nil, ErrStockCute
+	}
+
+	if priceFrom < priceTo {
+		return nil, ErrProductPrice
+	}
+
 	return &Product{
-		Code: code,
-		Name: name,
+		ID:        uuid.New(),
+		Code:      code,
+		Name:      name,
+		PriceFrom: priceFrom,
+		PriceTo:   priceTo,
+		Stock: Stock{
+			Total:     stockTotal,
+			Cute:      stockCute,
+			Available: stockTotal - stockCute,
+		},
 	}, nil
 }
