@@ -45,3 +45,9 @@ func initBase() (*application.ProductService, error) {
 
 	return application.NewProductService(conn.Conn), nil
 }
+
+func Migration(c *gin.Context) {
+	conn, _ := db.NewConnection(driver)
+
+	conn.RunMigration()
+}

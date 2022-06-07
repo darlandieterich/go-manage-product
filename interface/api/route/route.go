@@ -24,6 +24,7 @@ func Routes() {
 	////////////////
 	authMiddleware, _ := jwt.New(middleware.GetJWTMiddleware(&gin.Context{}))
 	r.POST("/login", authMiddleware.LoginHandler)
+	r.POST("/migration", handler.Migration)
 
 	r.NoRoute(authMiddleware.MiddlewareFunc(), func(c *gin.Context) {
 		claims := jwt.ExtractClaims(c)
