@@ -17,5 +17,5 @@ type Stock struct {
 	Total     int       `json:"total"`
 	Cute      int       `json:"cute"`
 	Available int       `json:"available"`
-	Product   Product   `gorm:"foreignKey:ID" json:"product"`
+	ProductID uuid.UUID `gorm:"index" json:"product_id"`
 }

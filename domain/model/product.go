@@ -19,8 +19,9 @@ type Product struct {
 	ID        uuid.UUID `gorm:"index,primaryKey" json:"id"`
 	Code      string    `gorm:"index" json:"code"`
 	Name      string    `json:"name"`
-	PriceFrom float32   `json:"preco_from"`
-	PriceTo   float32   `json:"preco_to"`
+	PriceFrom float32   `json:"price_from"`
+	PriceTo   float32   `json:"price_to"`
+	Stock     Stock     `json:"foreign_key:product_id"`
 }
 
 func NewProduct(code, name string) (*Product, error) {
