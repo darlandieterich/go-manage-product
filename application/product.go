@@ -15,12 +15,12 @@ type ProductService struct {
 }
 
 type ProductParam struct {
-	Code       string
-	Name       string
-	StockTotal uint
-	StockCute  uint
-	PriceFrom  float32
-	PriceTo    float32
+	Code       string  `json:"code"`
+	Name       string  `json:"name"`
+	StockTotal uint    `json:"stock_total"`
+	StockCute  uint    `json:"stock_cute"`
+	PriceFrom  float32 `json:"price_from"`
+	PriceTo    float32 `json:"price_to"`
 }
 
 func NewProductService(conn *gorm.DB) *ProductService {

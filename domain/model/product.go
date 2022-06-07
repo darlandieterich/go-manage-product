@@ -21,7 +21,7 @@ type Product struct {
 	Name      string    `json:"name"`
 	PriceFrom float32   `json:"price_from"`
 	PriceTo   float32   `json:"price_to"`
-	Stock     Stock     `gorm:"foreignKey:ProductID;references:ID" json:"stock"`
+	Stock     Stock     `gorm:"foreignKey:ID" json:"stock"`
 }
 
 func NewProduct(code, name string,
@@ -55,7 +55,6 @@ func NewProduct(code, name string,
 			Total:     stockTotal,
 			Cute:      stockCute,
 			Available: stockTotal - stockCute,
-			ProductID: uuid,
 		},
 	}, nil
 }
