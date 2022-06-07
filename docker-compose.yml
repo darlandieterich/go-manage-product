@@ -11,7 +11,7 @@ services:
       - database
   database:
     container_name: product-manager-database
-    image: postgres:9.4
+    image: postgres:9.5
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=passwd
