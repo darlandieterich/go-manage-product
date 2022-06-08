@@ -21,7 +21,6 @@ func Routes() {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
-	////////////////
 	authMiddleware, _ := jwt.New(middleware.GetJWTMiddleware(&gin.Context{}))
 	r.POST("/login", authMiddleware.LoginHandler)
 	r.POST("/migration", handler.Migration)
@@ -37,8 +36,10 @@ func Routes() {
 	{
 		auth.POST("/product", handler.CreateProduct)
 		auth.PATCH("/product/:id", handler.UpdateProduct)
+		auth.GET("/product/:id", handler.FindProductById)
+		auth.GET("/products", handler.FindProducts)
+		auth.DELETE("/product/:id", handler.DeleteProduct)
 	}
-	////////////////
 
 	r.Run()
 }

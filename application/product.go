@@ -77,10 +77,14 @@ func (s *ProductService) UpdateProduct(ctx context.Context, uuid uuid.UUID, para
 	return nil
 }
 
-func (s *ProductService) GetProduct(ctx context.Context, code string) (product *model.Product, err error) {
-	if code == "" {
-		return nil, model.ErrProductCode
-	}
+func (s *ProductService) GetProduct(ctx context.Context, id uuid.UUID) (product *model.Product, err error) {
+	return s.products.FindById(ctx, id)
+}
 
-	return s.products.FindByCode(ctx, code)
+func (s *ProductService) DeleteProduct(ctx context.Context, id uuid.UUID) (err error) {
+	return s.products.Delete(ctx, id)
+}
+
+func (s *ProductService) GetAllProducts(ctx context.Context) (products []*model.Product, err error) {
+	return s.products.ListAll(ctx)
 }

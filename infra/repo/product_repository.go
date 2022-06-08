@@ -26,20 +26,16 @@ func (t *ProductConn) Delete(ctx context.Context, uuid uuid.UUID) error {
 		return t.conn.Error
 	}
 
+	if t.conn.Delete(&model.Stock{ID: uuid}).Error != nil {
+		return t.conn.Error
+	}
+
 	return nil
 }
 
 func (t *ProductConn) ListAll(ctx context.Context) (products []*model.Product, err error) {
 	if finded := t.conn.Find(&products); finded.Error != nil {
 		return nil, finded.Error
-	}
-
-	return
-}
-
-func (t *ProductConn) FindByCode(ctx context.Context, code string) (product *model.Product, err error) {
-	if finded := t.conn.Preload("Stock").First(&product, "code = ?", code); finded.Error != nil {
-		return product, finded.Error
 	}
 
 	return

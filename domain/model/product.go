@@ -59,6 +59,10 @@ func ProductValidation(product *Product) error {
 		return ErrProductName
 	}
 
+	if product.Stock.Total == 0 {
+		return ErrStockTotal
+	}
+
 	if product.Stock.Cute > product.Stock.Total {
 		return ErrStockCute
 	}

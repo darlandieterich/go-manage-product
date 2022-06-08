@@ -15,7 +15,6 @@ const (
 
 func CreateProduct(c *gin.Context) {
 	ib, err := initBase()
-
 	if err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
@@ -28,7 +27,6 @@ func CreateProduct(c *gin.Context) {
 	}
 
 	productID, err := ib.CreateProduct(context.Background(), product)
-
 	if err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
@@ -62,7 +60,6 @@ func UpdateProduct(c *gin.Context) {
 	}
 
 	err = ib.UpdateProduct(context.Background(), uuid, product)
-
 	if err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
@@ -73,9 +70,76 @@ func UpdateProduct(c *gin.Context) {
 	})
 }
 
+func FindProductById(c *gin.Context) {
+	ib, err := initBase()
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	id := c.Params.ByName("id")
+	uuid, err := uuid.Parse(id)
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	product, err := ib.GetProduct(context.Background(), uuid)
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(200, gin.H{
+		"product": product,
+	})
+}
+
+func FindProducts(c *gin.Context) {
+	ib, err := initBase()
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	products, err := ib.GetAllProducts(context.Background())
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(200, gin.H{
+		"products": products,
+	})
+}
+
+func DeleteProduct(c *gin.Context) {
+	ib, err := initBase()
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	id := c.Params.ByName("id")
+	uuid, err := uuid.Parse(id)
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	err = ib.DeleteProduct(context.Background(), uuid)
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(200, gin.H{
+		"message": "product has deleted",
+	})
+}
+
 func initBase() (*application.ProductService, error) {
 	conn, err := db.NewConnection(driver)
-
 	if err != nil {
 		return nil, err
 	}

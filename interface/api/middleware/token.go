@@ -8,6 +8,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+var secretKey = "chave_secreta"
+
 type login struct {
 	Username string `form:"username" json:"username" binding:"required"`
 	Password string `form:"password" json:"password" binding:"required"`
@@ -22,7 +24,7 @@ type User struct {
 func GetJWTMiddleware(c *gin.Context) (authMiddleware *jwt.GinJWTMiddleware) {
 	return &jwt.GinJWTMiddleware{
 		Realm:      "test zone",
-		Key:        []byte("secret key"),
+		Key:        []byte(secretKey),
 		Timeout:    time.Hour,
 		MaxRefresh: time.Hour,
 		PayloadFunc: func(data interface{}) jwt.MapClaims {
