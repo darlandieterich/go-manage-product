@@ -148,7 +148,12 @@ func initBase() (*application.ProductService, error) {
 }
 
 func Migration(c *gin.Context) {
-	conn, _ := db.NewConnection(driver)
+	conn, err := db.NewConnection(driver)
+
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
 
 	conn.RunMigration()
 

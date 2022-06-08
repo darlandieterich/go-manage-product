@@ -11,7 +11,7 @@ import (
 func DataSourcePostgres() (*gorm.DB, error) {
 	user := utils.GetEnvWithDefault("DB_USER", "root")
 	password := utils.GetEnvWithDefault("DB_PASSWORD", "passwd")
-	host := utils.GetEnvWithDefault("DB_HOST", "localhost")
+	host := utils.GetEnvWithDefault("DB_HOST", "product-manager-database")
 	port := utils.GetEnvWithDefault("DB_PORT", "5432")
 	dbName := utils.GetEnvWithDefault("DB_NAME", "banco")
 

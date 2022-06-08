@@ -31,7 +31,7 @@ A porta padrão do serviço é 8080.
 Primeiramente será necessário rodar as migrações do banco de dados.
 
 ```bash
-  GET http://localhost:8080/migration
+  POST http://localhost:8080/migration
 ```
 
 Para usar os endpoints será necessário autenticar a aplicação no seguinte endereço:
