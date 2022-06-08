@@ -33,13 +33,11 @@ func NewConnection(d DriverName) (conn *Connection, err error) {
 		return nil, errors.New("driver not found")
 	}
 
-	//conn.runMigration()
-
 	return conn, nil
 }
 
 func (c *Connection) RunMigration() {
-	c.Conn.Migrator().DropTable(&model.Product{}, &model.Stock{})
+	// c.Conn.Migrator().DropTable(&model.Product{}, &model.Stock{})
 
 	err := c.Conn.AutoMigrate(&model.Product{})
 	if err != nil {

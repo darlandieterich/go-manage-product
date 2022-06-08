@@ -9,6 +9,8 @@ services:
       - "8080:8080"
     links:
       - database
+    depends_on:
+      - database
   database:
     container_name: product-manager-database
     image: postgres:9.5

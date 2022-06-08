@@ -151,4 +151,8 @@ func Migration(c *gin.Context) {
 	conn, _ := db.NewConnection(driver)
 
 	conn.RunMigration()
+
+	c.JSON(200, gin.H{
+		"message": "migration has done",
+	})
 }
